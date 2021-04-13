@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultrag.net.nz/thymeleaf/layout"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>学生新增</title>
+</head>
+<body>
+<div th:replace="~{fragments/header::header}"></div>
+<h3 th:text="${studentModel.title}"></h3>
+<form action="/students/insertStudent" th:action="@{/students/insertStudent}" method="POST" th:object="${studentModel.student}">
+    <input type="hidden" name="id" th:value="*{id}">
+    名字： <input type="text" name="name" th:value="*{name}">
+    <br>
+    性别： <input type="radio" name="sex" value="male" th:value="*{sex}">男
+          <input type="radio" name="sex" value="female" th:value="*{sex}">女
+    <br>
+    课程： <input type="text" name="name" th:value="*{name}">
+    <br>
+    成绩： <input type="text" name="name" th:value="*{name}">
+    <input type="submit" value="提交" >
+</form>
+<div th:replace="~{fragments/footer::footer}"></div>
+</body>
+</html>

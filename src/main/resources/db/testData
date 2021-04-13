@@ -1,0 +1,79 @@
+在数据库中插入执行下面的Sql，会生成4个表。然后把测试数据插入进去。
+作业：
+一. 看完B站上面springbatch的教程
+二. 分别对这4个表实现单表的增删改查
+三. 对以下的问题写出Sql，用程序实现以下问题的查询
+1、查询所有教师和同学的name、sex和birthday.
+2、查询所有“女”教师和“女”同学的name、sex和birthday.
+3、查询成绩比该课程平均成绩低的同学的成绩表。
+4、查询所有任课教师的Tname和Depart.
+5 查询所有未讲课的教师的Tname和Depart.
+6、查询至少有2名男生的班号。
+7、查询Student表中不姓“王”的同学记录。
+8、查询Student表中每个学生的姓名和年龄。
+9、查询Student表中最大和最小的Sbirthday日期值。
+10、以班号和年龄从大到小的顺序查询Student表中的全部记录。
+11、查询“男”教师及其所上的课程。
+12、查询最高分同学的Sno、Cno和Degree列。
+13、查询和“李军”同性别的所有同学的Sname.
+14、查询和“李军”同性别并同班的同学Sname.
+15、查询所有选修“计算机导论”课程的“男”同学的成绩表
+(SQL写不出来的话参考answers这个文件，写程序的时候，用到的参数在controller里面写死，然后传给service，在传给dao，这样进行查询，在浏览器上访问
+对应的接口，能把正确的结果查询出来就行)
+
+
+CREATE TABLE students(
+    sno VARCHAR (3) NOT NULL
+    , sname VARCHAR (4) NOT NULL
+    , ssex VARCHAR (2) NOT NULL
+    , sbirthday DATETIME
+    , class VARCHAR (5)
+);
+
+CREATE TABLE courses(
+    cno VARCHAR (5) NOT NULL
+    , cname VARCHAR (10) NOT NULL
+    , tno VARCHAR (10) NOT NULL
+);
+
+CREATE TABLE scores(
+    sno VARCHAR (3) NOT NULL
+    , cno VARCHAR (5) NOT NULL
+    , degree NUMERIC (10, 1) NOT NULL
+);
+
+CREATE TABLE teachers(
+    tno VARCHAR (3) NOT NULL
+    , tname VARCHAR (4) NOT NULL
+    , tsex VARCHAR (2) NOT NULL
+    , tbirthday DATETIME NOT NULL
+    , prof VARCHAR (6)
+    , depart VARCHAR (10) NOT NULL
+);
+
+INSERT INTO students (SNO,SNAME,SSEX,SBIRTHDAY,CLASS) VALUES (108 ,'曾华' ,'男' ,'1977-09-01',95033);
+INSERT INTO students (SNO,SNAME,SSEX,SBIRTHDAY,CLASS) VALUES (105 ,'匡明' ,'男' ,'1975-10-02',95031);
+INSERT INTO students (SNO,SNAME,SSEX,SBIRTHDAY,CLASS) VALUES (107 ,'王丽' ,'女' ,'1976-01-23',95033);
+INSERT INTO students (SNO,SNAME,SSEX,SBIRTHDAY,CLASS) VALUES (101 ,'李军' ,'男' ,'1976-02-20',95033);
+INSERT INTO students (SNO,SNAME,SSEX,SBIRTHDAY,CLASS) VALUES (109 ,'王芳' ,'女' ,'1975-02-10',95031);
+INSERT INTO students (SNO,SNAME,SSEX,SBIRTHDAY,CLASS) VALUES (103 ,'陆君' ,'男' ,'1974-06-03',95031);
+INSERT INTO courses(CNO,CNAME,TNO)VALUES ('3-105' ,'计算机导论',825);
+INSERT INTO courses(CNO,CNAME,TNO)VALUES ('3-245' ,'操作系统' ,804);
+INSERT INTO courses(CNO,CNAME,TNO)VALUES ('6-166' ,'数据电路' ,856);
+INSERT INTO courses(CNO,CNAME,TNO)VALUES ('9-888' ,'高等数学' ,100);
+INSERT INTO scores(SNO,CNO,DEGREE)VALUES (103,'3-245',86);
+INSERT INTO scores(SNO,CNO,DEGREE)VALUES (105,'3-245',75);
+INSERT INTO scores(SNO,CNO,DEGREE)VALUES (109,'3-245',68);
+INSERT INTO scores(SNO,CNO,DEGREE)VALUES (103,'3-105',92);
+INSERT INTO scores(SNO,CNO,DEGREE)VALUES (105,'3-105',88);
+INSERT INTO scores(SNO,CNO,DEGREE)VALUES (109,'3-105',76);
+INSERT INTO scores(SNO,CNO,DEGREE)VALUES (101,'3-105',64);
+INSERT INTO scores(SNO,CNO,DEGREE)VALUES (107,'3-105',91);
+INSERT INTO scores(SNO,CNO,DEGREE)VALUES (108,'3-105',78);
+INSERT INTO scores(SNO,CNO,DEGREE)VALUES (101,'6-166',85);
+INSERT INTO scores(SNO,CNO,DEGREE)VALUES (107,'6-106',79);
+INSERT INTO scores(SNO,CNO,DEGREE)VALUES (108,'6-166',81);
+INSERT INTO teachers(TNO,TNAME,TSEX,TBIRTHDAY,PROF,DEPART) VALUES (804,'李诚','男','1958-12-02','副教授','计算机系');
+INSERT INTO teachers(TNO,TNAME,TSEX,TBIRTHDAY,PROF,DEPART) VALUES (856,'张旭','男','1969-03-12','讲师','电子工程系');
+INSERT INTO teachers(TNO,TNAME,TSEX,TBIRTHDAY,PROF,DEPART) VALUES (825,'王萍','女','1972-05-05','助教','计算机系');
+INSERT INTO teachers(TNO,TNAME,TSEX,TBIRTHDAY,PROF,DEPART) VALUES (831,'刘冰','女','1977-08-14','助教','电子工程系');

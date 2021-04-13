@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultrag.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title >学生信息select</title>
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div th:replace="~{fragments/header::header}">selectheader</div>
+<h3 th:text="${studentModel.title}"></h3>
+<!--<div>-->
+<!--    <a th:href="@{/users/form}">创建学生</a>-->
+<!--</div>-->
+<table border="1">
+    <thead>
+    <tr>
+        <td>ID</td>
+        <td>姓名</td>
+        <td>性别</td>
+        <td>课程</td>
+        <td>成绩</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${studentModel.studentList.size()} eq 0">
+        <td colspan="5">没有学生信息！</td>
+    </tr>
+    <tr th:each="student:${studentModel.studentList}">
+        <td th:text="${student.id}"></td>
+        <td th:text="${student.name}"></td>
+        <td th:text="${student.sex}"></td>
+        <td th:text="${student.courseName}"></td>
+        <td th:text="${student.score}"></td>
+    </tr>
+
+    <button class="btn-primary">按钮</button>
+    </tbody>
+</table>
+
+<div th:text="${studentModel.studentList}"></div>
+
+<div th:replace="~{fragments/footer::footer}">selectfooter</div>
+</body>
+<script>
+
+</script>
+</html>

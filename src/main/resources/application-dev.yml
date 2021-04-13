@@ -1,0 +1,31 @@
+spring:
+  datasource:
+    username: root
+    password: qwermnbv135
+#    url: jdbc:mysql://localhost:3306/spring_batch_test?serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/db1?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    batch:
+    initialize-schema: always
+  ##############################################
+  #
+  # thymeleaf静态资源配置
+  #
+  ##############################################
+  thymeleaf:
+    #默认路径
+    prefix: classpath:/templates/thymeleaf/
+    #后缀
+    suffix: .html
+    #模板格式
+    mode: HTML5
+    encoding: UTF-8
+    content-type: text/html
+    cache: false
+
+server:
+  port: 8080
+
+mybatis:
+  mapper-locations: classpath:/mapping/*Mapper.xml
+  type-aliases-package: com.koiwaLearning.api.domain

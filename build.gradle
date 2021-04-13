@@ -1,0 +1,41 @@
+//apply plugin 'eclipse'
+plugins {
+	id 'org.springframework.boot' version '2.4.2'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'com.koiwaLearningGroup'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	//閰嶇疆mysql杩炴帴鍣�
+	compile 'mysql:mysql-connector-java'
+
+	//閰嶇疆mybatis 鏁版嵁婧�
+	compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.0")
+	testCompile('org.mybatis.spring.boot:mybatis-spring-boot-starter-test:1.3.0')
+
+	//浣跨敤 Controller 鐨勬椂鍊欓渶瑕佸紩鍏� web 鍖�
+	compile('org.springframework.boot:spring-boot-starter-web')
+
+	//spring batch绫诲簱
+	compile('org.springframework.boot:spring-boot-starter-batch')
+	testCompile('org.springframework.batch:spring-batch-test')
+
+	//Thymeleaf妯℃澘
+	compile("org.springframework.boot:spring-boot-starter-thymeleaf:2.4.2")
+	compile("net.sourceforge.nekohtml:nekohtml:1.9.22")
+}
+
+test {
+	useJUnitPlatform()
+}
