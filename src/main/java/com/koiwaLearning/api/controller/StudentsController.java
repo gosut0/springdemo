@@ -2,10 +2,16 @@ package com.koiwaLearning.api.controller;
 
 import com.koiwaLearning.api.domain.StudentsInfo;
 import com.koiwaLearning.api.service.StudentsService;
+
+import io.micrometer.core.instrument.search.Search;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -23,8 +29,14 @@ public class StudentsController {
     public ModelAndView getStudentsInfo(Model model) {
         model.addAttribute("studentList",studentsService.getStudentsInfo());
         model.addAttribute("title", "学生信息");
-        System.out.println(studentsService.getStudentsInfo());
         return new ModelAndView("students/studentsInfoSelect","studentModel",model);
+    }
+    
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public StudentsInfo Search(@RequestParam("sid") String sid) {
+		StudentsInfo student = studentsService.search(sid);
+    	System.out.println(student.getName());
+		return student;
     }
 
     /**

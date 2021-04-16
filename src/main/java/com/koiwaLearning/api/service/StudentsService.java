@@ -14,8 +14,12 @@ public class StudentsService {
     private StudentsMapper studentsMapper;
 
     public List<StudentsInfo> getStudentsInfo() {
-//    	System.out.print("server");
         return studentsMapper.getStudentsInfo();
+    }
+    
+    
+    public StudentsInfo search(String sid) {
+        return studentsMapper.search(sid);
     }
 
     // 追加
@@ -31,4 +35,5 @@ public class StudentsService {
     public int deleteStudents(String sno) {
         return studentsMapper.deleteStudents(sno);
     }
+    
 }

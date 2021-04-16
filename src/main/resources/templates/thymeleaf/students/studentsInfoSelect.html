@@ -13,12 +13,25 @@
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
+
+<style>
+				.search {
+								margin: 10px;
+				}
+</style>
+
 <body>
 <div th:replace="~{fragments/header::header}">selectheader</div>
 <h3 th:text="${studentModel.title}"></h3>
 <!--<div>-->
 <!--    <a th:href="@{/users/form}">创建学生</a>-->
 <!--</div>-->
+
+<div class="search">
+				sid:<input type="text" name="search" id="sid">
+				<button onclick="getId()">search</button>
+</div>
+
 <table border="1">
     <thead>
     <tr>
@@ -27,6 +40,7 @@
         <td>性别</td>
         <td>课程</td>
         <td>成绩</td>
+        <td>delete</td>
     </tr>
     </thead>
     <tbody>
@@ -39,17 +53,50 @@
         <td th:text="${student.sex}"></td>
         <td th:text="${student.courseName}"></td>
         <td th:text="${student.score}"></td>
+        <td><button th:name="${student.id}" onclick="del()" class="${student.id}">del</button></td>
     </tr>
 
-    <button class="btn-primary">按钮</button>
+<!--     <button class="btn-primary">按钮</button> -->
     </tbody>
 </table>
 
-<div th:text="${studentModel.studentList}"></div>
-
 <div th:replace="~{fragments/footer::footer}">selectfooter</div>
 </body>
-<script>
 
+<script>
+console.log(studentModel.studentList);
+// 				let url = "/students/";
+				function getId() {
+								let sid = document.getElementById("sid").value;
+								let keyWord = document.getElementById("sid").name;
+								searchStudent(sid);
+				}
+				function searchStudent(sid) {
+								let url = "/students/" + "search" + "?sid=" + sid;
+								console.log(url);
+								
+								const Http = new XMLHttpRequest();
+								Http.open("GET", url);
+								Http.send();
+								Http.onreadystatechange = function () {   //请求后的回调接口，可将请求成功后要执行的程序写在其中
+								    if (Http.readyState == 4 && Http.status == 200) {//验证请求是否发送成功
+								        var resText = Http.responseText;  //获取到服务端返回的数据
+								        console.log(resText);
+								        if (resText == "" || undefind || null) {
+								        			resText = "no data";
+								        }
+								        alert(resText);
+								    }
+								}
+				}
+				
+				function del() {
+					let sid = document.getElementByClassName("ddd").name;
+					console.log(sid);
+					searchStudent(sid);
+				}
+				
+				
+// 				url = "/students/";
 </script>
 </html>

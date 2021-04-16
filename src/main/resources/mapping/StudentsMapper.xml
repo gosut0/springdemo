@@ -8,6 +8,8 @@
         <result column="sex" jdbcType="VARCHAR" property="sex" />
         <result column="course_name" jdbcType="VARCHAR" property="courseName" />
         <result column="score" jdbcType="VARCHAR" property="score" />
+        <result column="class" jdbcType="VARCHAR" property="sclass" />
+        <result column="sbirthday" jdbcType="VARCHAR" property="sbirthday" />
     </resultMap>
 
     <select id="getStudentsInfo" resultMap="BaseResultMap">
@@ -31,12 +33,17 @@
         UPDATE students
         SET SNAME = #{sname},
         SCLASS = #{sclass}
-        WHERE   sno = #{sno};
+        WHERE   sno = #{id};
     </update>
 
     <delete id="deleteStudents" parameterType="String">
         DELETE FROM students
-        WHERE sno = #{sno};
+        WHERE sno = #{id};
     </delete>
+    
+    <select id="search" parameterType="String" resultMap="BaseResultMap">
+								select students.sno as id , students.sname as name , students.ssex as sex , students.class as class , students.sbirthday as sbirthday
+        from students where students.sno = #{id};    
+    </select>
 
 </mapper>

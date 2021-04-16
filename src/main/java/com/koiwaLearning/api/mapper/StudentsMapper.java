@@ -9,6 +9,9 @@ import java.util.List;
 public interface StudentsMapper {
     // 查询
     List<StudentsInfo> getStudentsInfo();
+    
+    // 
+    StudentsInfo search(String sid);
 
     // 追加
     int insertStudents(StudentsInfo students);
@@ -17,5 +20,6 @@ public interface StudentsMapper {
     int updateStudents(StudentsInfo students);
 
     // 削除
-    int deleteStudents(String sno);
+    int deleteStudents(String sid);
+    
 }

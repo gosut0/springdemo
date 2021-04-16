@@ -10,17 +10,23 @@ public class StudentsInfo {
 
     private String courseName;
 
-    private String score;
+	private String score;
 
-    public StudentsInfo() {
+	private String sbirthday;
+	private String sclass;
+
+	public StudentsInfo() {
     }
 
-    public StudentsInfo(String id, String name, String sex, String courseName, String score) {
+    public StudentsInfo(String id, String name, String sex, String courseName, String score,
+    		String sbirthday, String sclass) {
         this.id = id;
         this.name = name;
         this.sex = sex;
         this.courseName = courseName;
         this.score = score;
+        this.sbirthday = sbirthday;
+        this.sclass = sclass;
     }
 
     public String getId() {
@@ -62,4 +68,20 @@ public class StudentsInfo {
     public void setScore(String score) {
         this.score = score;
     }
+
+	public String getSbirthday() {
+		return sbirthday;
+	}
+
+	public void setSbirthday(String sbirthday) {
+		this.sbirthday = sbirthday;
+	}
+
+	public String getSclass() {
+		return sclass;
+	}
+
+	public void setSclass(String sclass) {
+		this.sclass = sclass;
+	}
 }
