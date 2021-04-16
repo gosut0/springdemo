@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.koiwaLearning.api.mapper.ScoresMapper">
+
+    <resultMap id="BaseResultMap" type="com.koiwaLearning.api.domain.ScoresInfo">
+        <result column="sname" jdbcType="VARCHAR" property="sname" />
+        <result column="courseName" jdbcType="VARCHAR" property="courseName" />
+        <result column="degree" jdbcType="VARCHAR" property="degree" />
+    </resultMap>
+
+    <select id="getScoresInfo" resultMap="BaseResultMap">
+        select scores.degree as degree, students.sname as sname, courses.cname as courseName from scores
+								inner join students 
+										on scores.sno = students.sno 
+								inner join courses 
+										on scores.cno = courses.cno
+								order by courseName;
+<!-- 								select degree as degree, sno as sno, cno as cno from scores -->
+    </select>
+
+    <insert id="insertScores" parameterType="com.koiwaLearning.api.domain.ScoresInfo">
+        INSERT INTO scores (
+        sno,sname,ssex,sbirthday,sclass)
+        VALUES (
+        #{sno},#{sname},#{ssex},#{sbirthday},#{sclass});
+    </insert>
+
+    <update id="updateScores" parameterType="com.koiwaLearning.api.domain.ScoresInfo">
+        UPDATE scores
+        SET SNAME = #{sname},
+        SCLASS = #{sclass}
+        WHERE   sno = #{sno};
+    </update>
+
+    <delete id="deleteScores" parameterType="String">
+        DELETE FROM scores
+        WHERE sno = #{sno};
+    </delete>
+
+</mapper>

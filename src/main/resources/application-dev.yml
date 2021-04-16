@@ -2,7 +2,6 @@ spring:
   datasource:
     username: root
     password: qwermnbv135
-#    url: jdbc:mysql://localhost:3306/spring_batch_test?serverTimezone=UTC
     url: jdbc:mysql://localhost:3306/db1?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
     batch:
