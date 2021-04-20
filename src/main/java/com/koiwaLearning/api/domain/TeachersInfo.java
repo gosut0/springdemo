@@ -28,11 +28,11 @@ public class TeachersInfo {
         this.prof = prof;
     }
 
-    public String getId() {
+    public String getTid() {
         return tid;
     }
 
-    public void setId(String tid) {
+    public void setTid(String tid) {
         this.tid = tid;
     }
 

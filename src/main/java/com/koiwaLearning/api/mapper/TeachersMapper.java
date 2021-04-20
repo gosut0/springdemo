@@ -10,12 +10,14 @@ public interface TeachersMapper {
 
     // 查询
     List<TeachersInfo> getTeachersInfo();
+    
+    TeachersInfo searchTeacher(String tid);
 
     // 追加
     int insertTeachers(TeachersInfo teachers);
 
     // 更新
-    int updateTeachers(TeachersInfo teachers);
+    int updateTeachers(String teachers);
 
     // 削除
     int deleteTeachers(String tid);

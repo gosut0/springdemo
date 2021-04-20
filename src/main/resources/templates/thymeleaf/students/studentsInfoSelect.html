@@ -29,7 +29,7 @@
 
 <div class="search">
 				sid:<input type="text" name="search" id="sid">
-				<button onclick="getId()">search</button>
+				<button id="getId">search</button>
 </div>
 
 <table border="1">
@@ -53,7 +53,7 @@
         <td th:text="${student.sex}"></td>
         <td th:text="${student.courseName}"></td>
         <td th:text="${student.score}"></td>
-        <td><button th:name="${student.id}" onclick="del()" class="${student.id}">del</button></td>
+        <td><button th:name="${student.id}" class="del_class">del</button></td>
     </tr>
 
 <!--     <button class="btn-primary">按钮</button> -->
@@ -63,40 +63,46 @@
 <div th:replace="~{fragments/footer::footer}">selectfooter</div>
 </body>
 
-<script>
-console.log(studentModel.studentList);
-// 				let url = "/students/";
-				function getId() {
-								let sid = document.getElementById("sid").value;
-								let keyWord = document.getElementById("sid").name;
+<script>				
+$(document).ready(function() {
+				
+				$("#getId").click(function(e) {
+								let sid = $("#sid").val();
 								searchStudent(sid);
-				}
+				});
+						
+				$('.del_class').on('click',function(e){
+				    let target = $(e.target);
+				    let sid = target.attr("name");
+								console.log(sid);
+								searchStudent(sid);
+				});
+										
 				function searchStudent(sid) {
-								let url = "/students/" + "search" + "?sid=" + sid;
-								console.log(url);
-								
-								const Http = new XMLHttpRequest();
-								Http.open("GET", url);
-								Http.send();
-								Http.onreadystatechange = function () {   //请求后的回调接口，可将请求成功后要执行的程序写在其中
-								    if (Http.readyState == 4 && Http.status == 200) {//验证请求是否发送成功
-								        var resText = Http.responseText;  //获取到服务端返回的数据
-								        console.log(resText);
-								        if (resText == "" || undefind || null) {
-								        			resText = "no data";
-								        }
-								        alert(resText);
-								    }
-								}
+								let url = "/students/search?sid=" + sid;
+								console.log(url);								
+				    
+				    $.ajax({
+				        url: url,
+				        type: 'get',
+				        // data: {sid: sid},
+				        dataType: 'json',
+				        success: function (xhr, status) {
+					       				console.log(xhr);
+					       				alert(JSON.stringify(xhr));
+				        },
+				    				error: function(xhr, status) {
+				    								console.log("数据: " + xhr + "\n状态: " + status);
+								       	alert("no data");
+				        }
+				    });
 				}
 				
-				function del() {
-					let sid = document.getElementByClassName("ddd").name;
-					console.log(sid);
-					searchStudent(sid);
-				}
+	
+});
+				
+
 				
 				
-// 				url = "/students/";
 </script>
 </html>

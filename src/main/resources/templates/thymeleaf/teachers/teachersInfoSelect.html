@@ -13,9 +13,18 @@
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
+<style>
+				.search {
+								margin: 10px;
+				}
+</style>
 <body>
 <div th:replace="~{fragments/header::header}">selectheader</div>
 <h3 th:text="${teacherModel.title}"></h3>
+<div class="search">
+				tid:<input type="text" name="search" id="tid">
+				<button id="getId">search</button>
+</div>
 <table border="1">
     <thead>
     <tr>
@@ -24,6 +33,9 @@
         <td>生日</td>
         <td>职称</td>
         <td>课程</td>
+        <td>ID</td>
+        <td>update</td>
+        <td>delete</td>
     </tr>
     </thead>
     <tbody>
@@ -36,9 +48,12 @@
         <td th:text="${teacher.tbirthday}"></td>
         <td th:text="${teacher.prof}"></td>
         <td th:text="${teacher.depart}"></td>
+        <td th:text="${teacher.tid}"></td>
+        <td><button th:name="${teacher.tid}" class="update">update</button></td>
+        <td><button th:name="${teacher.tid}" class="del_class">del</button></td>
     </tr>
 
-    <button class="btn-primary">按钮</button>
+    <button class=""><a href="/teachers/form">add</a></button>
     </tbody>
 </table>
 <div th:text="${teacherModel.teacherList.size()}"></div>
@@ -46,6 +61,109 @@
 <div th:replace="~{fragments/footer::footer}">selectfooter</div>
 </body>
 <script>
+$(document).ready(function() {
+				$("#getId").click(function() {
+					   let tid = $("#tid").val();
+					   search(tid);
+				});
+				
+				$(".update").on("click", function(e) {
+								let tid = $(e.target).attr("name");
+								console.log(tid);
+								//goToForm(tid);
+								let url = "/teachers/update";
+								let data = search(tid);
+								console.log(data);
+								//data.tname = "李诚";
+								data.tname = "test";
+								console.log(data);
+								let teacherInfo = data;
+								//return;
+								$.ajax({
+								    url: url,
+								    type: 'get',
+								    data: {tname: "test"},
+// 				        dataType: 'json',
+												//contentType:"application/json;charset=utf-8",
+				        success: function (xhr, status) {
+					       				console.log(xhr);
+					       				//alert(JSON.stringify(xhr));
+				        },
+				    				error: function(xhr, status) {
+				    								console.log(status);
+				    								console.log(xhr);
+								       	//alert("no data");
+				        }
+								});
+								
+				});
+				
+				$('.del_class').on('click',function(e){
+				    let target = $(e.target);
+				    let tid = target.attr("name");
+								console.log(tid);
+								let url = "/teachers/delete";
+								$.ajax({
+								    url: url,
+								    type: 'get',
+								    data: {tid: tid},
+				        //dataType: 'json',
+				        //contentType:"application/json;charset=utf-8",
+				        success: function (xhr, status) {
+					       				console.log(xhr);
+					       				//alert(JSON.stringify(xhr));
+				        },
+				    				error: function(xhr, status) {
+				    								console.log("数据: " + xhr + "\n状态: " + status);
+								       	//alert("no data");
+				        }
+								});
+				});
+				
+				function search(tid) {
+								let url = "/teachers/search?tid=" + tid;
+								console.log(url);
+								let res = null;
+								$.ajax({
+								    url: url,
+								    type: 'get',
+								    async: false,
+				        dataType: 'json',
+				        success: function (xhr, status) {
+					       				console.log(xhr);
+// 					       				alert(JSON.stringify(xhr));
+																res = xhr;
+				        },
+				    				error: function(xhr, status) {
+				    								console.log("数据: " + xhr + "\n状态: " + status);
+								       	alert("no data");
+				        },
+								});
+								return res;
+				};
+				
+				function goToForm(id) {
+					   let url = "/teachers/form";
+// 					   if (id != "" || id != null || id != undefined) {
+// 						  				url = url + "?tid=" + id;
+// 					   }
+					   $.ajax({
+						  				url: url,
+						  				type: 'get',
+// 				        dataType: 'json',
+				        success: function(xhr, status) {
+					       				console.log(111);
+					       				console.log(xhr);
+				        },
+				        error: function(status) {
+				        	   console.log(status);
+				        }
+					   })
+					   
+				};
 
+	
+	
+});
 </script>
 </html>

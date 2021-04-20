@@ -16,6 +16,10 @@ public class TeachersService {
     public List<TeachersInfo> getTeachersInfo() {
         return teachersMapper.getTeachersInfo();
     }
+    
+    public TeachersInfo searchTeacher(String tid) {
+		return teachersMapper.searchTeacher(tid);
+	}
 
     // 追加
     public int insertTeachers(TeachersInfo teachers) {
@@ -23,7 +27,7 @@ public class TeachersService {
     }
 
     // 更新
-    public int updateTeachers(TeachersInfo teachers) {
+    public int updateTeachers(String teachers) {
         return teachersMapper.updateTeachers(teachers);
     }
     // 削除
